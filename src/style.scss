@@ -35,9 +35,28 @@ button {
       gap: 30px;
       li {
         cursor: pointer;
+
         svg {
           width: 25px;
           height: 25px;
+        }
+        a {
+          position: relative;
+
+          .favoriteLength {
+            position: absolute;
+            background: cadetblue;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 15px;
+            height: 15px;
+            top: -15px;
+            color: white;
+            font-size: 12px;
+            right: -9px;
+          }
         }
       }
     }
@@ -118,8 +137,8 @@ button {
             width: 22px;
             height: 24px;
           }
-          &.active{
-            background: red;
+          &.active {
+            color: red;
           }
         }
         .about {
@@ -235,6 +254,142 @@ button {
             width: 100%;
             height: 100%;
           }
+        }
+      }
+    }
+  }
+}
+
+.cart {
+  h2 {
+    margin-top: 20px;
+    display: block;
+  }
+  &-content {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    ul {
+      width: 75%;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      li {
+        box-shadow: 0 0 4px #cdcdcd;
+
+        border-radius: 4px;
+        padding: 20px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        h3 {
+          width: 150px;
+          text-align: center;
+        }
+        img {
+          width: 150px;
+          height: 150px;
+          object-fit: contain;
+        }
+        span {
+          display: flex;
+          align-items: center;
+          background: #f6f6f6;
+          border-radius: 13px;
+          justify-content: center;
+          width: 150px;
+          padding: 13px;
+          font-size: 23px;
+        }
+        .counts {
+          display: flex;
+          align-items: center;
+          background: #f6f6f6;
+          border-radius: 13px;
+          justify-content: center;
+          width: 150px;
+          padding: 8px;
+          span {
+            font-size: 23px;
+            padding: 0;
+          }
+          button {
+            background: 0;
+            border: 0;
+            padding: 5px 0px;
+            width: 100%;
+            font-size: 23px;
+          }
+        }
+        button {
+          padding: 5px 15px;
+          border-radius: 13px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 23px;
+          background: #f6f6f6;
+          border: 0;
+        }
+      }
+    }
+    .price-total {
+      width: 20%;
+
+      box-shadow: 0 0 4px #cdcdcd;
+      border-radius: 4px;
+      padding: 20px;
+      height: 350px;
+      h2 {
+        display: block;
+        border-bottom: 2px solid #dfdfdf;
+        padding-bottom: 10px;
+      }
+      &__top {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+      }
+      &__bottom {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 0;
+        border-bottom: 2px solid #dfdfdf;
+      }
+      &__checkout {
+        display: flex;
+        flex-direction: column;
+        div {
+          background: #f6f6f6;
+          margin-top: 20px;
+          padding: 12px;
+          border-radius: 9px;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          span:nth-child(2) {
+            font-style: italic;
+            font-size: 20px;
+            color: #d92e15;
+            font-weight: 600;
+          }
+        }
+
+        button {
+          background: #d92e15;
+          font-size: 14px;
+          line-height: 17px;
+          font-weight: 600;
+          padding: 13px 0;
+          border-radius: 9px;
+          color: white;
+          border: 0;
+          margin-top: 20px;
+        }
+        button:nth-child(2) {
+          background: 0;
+          border: 1px solid #d92e15;
+          color: #d92e15;
         }
       }
     }

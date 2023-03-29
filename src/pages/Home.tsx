@@ -1,31 +1,24 @@
 import React from "react";
 import Main from "../components/Main";
-import { IProduct } from "../components/type/type";
+import Pagination from "../components/Pagination";
+import { IProduct } from "../type/type";
 
 interface IHomeProps {
   item: IProduct[];
-  addToCart: (e: any) => void;
-  addToFavorites: (e: any) => void;
+
   priceActive: boolean;
   setPriceActive: (e: any) => void;
 }
 
-const Home: React.FC<IHomeProps> = ({
-  item,
-  addToCart,
-  addToFavorites,
-  priceActive,
-  setPriceActive,
-}) => {
+const Home: React.FC<IHomeProps> = ({ item, priceActive, setPriceActive }) => {
   return (
     <>
       <Main
         item={item}
-        addToCart={addToCart}
-        addToFavorites={addToFavorites}
         priceActive={priceActive}
         setPriceActive={setPriceActive}
       />
+      <Pagination />
     </>
   );
 };

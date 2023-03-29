@@ -1,49 +1,33 @@
 import React from "react";
-import { FaShoppingBag } from "react-icons/fa";
+import FavoriteItem from "../components/FavoriteItem";
+import { IProduct } from "../type/type";
 
-import { IProduct } from "../components/type/type";
 interface IFavoritesProps {
   favoriteEl: IProduct[];
   setFavoriteEl: (el: any) => void;
 }
-const Favorites: React.FC<IFavoritesProps> = ({
-  favoriteEl,
-  setFavoriteEl,
-}) => {
-  const removeFavoriteEl = (i: any) => {
-    setFavoriteEl(
-      [...favoriteEl].filter((el) => {
-        return el.id !== i;
-      })
-    );
-  };
-
+const Favorites: React.FC<IFavoritesProps> = ({ favoriteEl }) => {
   return (
     <div className="favorites">
       <h2>Favorites</h2>
       <div className="favorites-list">
         {favoriteEl.length ? (
-          favoriteEl.map((el) => {
+          favoriteEl.map((el, i) => {
             return (
-              <div key={el.id} className="favorites-list__item">
-                <span onClick={() => removeFavoriteEl(el.id)} className="del">
-                  Delete
-                </span>
-                <img src={el.images[0]} alt={el.images[0]} />
-                <h3 className="title">{el.title}</h3>
-                <p>{el.description}</p>
-                <span className="price">{el.price}</span>
-                <div className="buy">
-                  <button>
-                    <FaShoppingBag />
-                  </button>
-                  <button>In installments</button>
-                </div>
-              </div>
+              <FavoriteItem
+                key={i}
+                images={el.images[0]}
+                favoriteEl={favoriteEl}
+                id={el.id}
+                description={el.description}
+                title={el.title}
+                price={el.price}
+                el={el}
+              />
             );
           })
         ) : (
-          <p className="noneInfo">Empty</p>
+          <p>Empty</p>
         )}
       </div>
     </div>

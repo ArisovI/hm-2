@@ -1,11 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { FaUser, FaHeart, FaShoppingCart } from "react-icons/fa";
+
 interface IHeaderProps {
   categoryId: number;
   setCategoryId: (el: any) => void;
+  favoriteEl: number;
+  cartItems: number;
 }
-const Header: React.FC<IHeaderProps> = ({ categoryId, setCategoryId }) => {
+
+const Header: React.FC<IHeaderProps> = ({
+  categoryId,
+  setCategoryId,
+  favoriteEl,
+  cartItems,
+}) => {
   const category: string[] = [
     "All",
     "Nuevo",
@@ -24,11 +33,17 @@ const Header: React.FC<IHeaderProps> = ({ categoryId, setCategoryId }) => {
           <li>
             <Link to="cart">
               <FaShoppingCart />
+              <span className="favoriteLength">
+                {cartItems > 0 ? cartItems : ""}
+              </span>
             </Link>
           </li>
           <li>
             <Link to="favorites">
               <FaHeart />
+              <span className="favoriteLength">
+                {favoriteEl > 0 ? favoriteEl : ""}
+              </span>
             </Link>
           </li>
           <li>
