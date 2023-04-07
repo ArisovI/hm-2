@@ -1,0 +1,55 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  h1 {
+    font-size: 35px;
+  }
+  .search {
+    background: red;
+    width: 400px;
+    display: flex;
+    input {
+      padding: 10px;
+      width: 84%;
+    }
+    button {
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+  .right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    ul {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      li {
+        svg {
+          display: flex;
+          width: 28px;
+          height: 28px;
+        }
+      }
+    }
+    .user {
+      cursor: pointer;
+      display: flex;
+      box-shadow: 0 0 2px black;
+      align-items: center;
+      justify-content: space-between;
+      border-radius: 4px;
+      gap: 10px;
+      padding: 5px 10px;
+      svg {
+        width: 28px;
+        display: flex;
+        height: 28px;
+      }
+    }
+  }
+}

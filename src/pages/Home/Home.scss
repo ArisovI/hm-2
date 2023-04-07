@@ -1,0 +1,33 @@
+.home {
+  margin-top: 20px;
+  .category {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    li {
+      padding: 8px 15px;
+      border-radius: 3px;
+      box-shadow: 0 0 3px black;
+      text-transform: capitalize;
+      cursor: pointer;
+      &.active {
+        background: #333333;
+        color: white;
+      }
+    }
+  }
+  .home-content {
+    display: flex;
+    margin-top: 20px;
+    gap: 30px;
+    .filter {
+      background: red;
+      width: 20%;
+      height: 100%;
+    }
+    .content {
+      width: 100%;
+      //   background: blue;
+    }
+  }
+}
