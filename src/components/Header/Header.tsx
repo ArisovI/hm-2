@@ -20,17 +20,20 @@ const Header = () => {
       <div className="right">
         <ul>
           {routes.map((item, i) => (
-            <li key={i} >
+            <li key={i}>
               <Link to={item === "Home" ? "/" : item}>
                 {item === "Cart" ? <FaShoppingCart /> : <FaHome />}
               </Link>
             </li>
           ))}
         </ul>
-        <div className="user">
-          <FaUserAlt />
-          <span>John</span>
-        </div>
+
+        <Link to="/login">
+          <div className="user">
+            <FaUserAlt />
+            <span>John</span>
+          </div>
+        </Link>
       </div>
     </div>
   );

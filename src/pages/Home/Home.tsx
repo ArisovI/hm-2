@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useMemo } from "react";
 import ProductList from "../../components/ProductList/ProductList";
 import { Context } from "../../context/Context";
 import "./Home.scss";

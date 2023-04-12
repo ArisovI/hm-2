@@ -1,10 +1,15 @@
 import React from "react";
 interface IButtonProps {
   children: React.ReactNode;
-  onClick?: () => void;
+  onClick?: (e: any) => void;
+  disabled?: any;
 }
-const MyButton: React.FC<IButtonProps> = ({ children, onClick }) => {
-  return <button>{children}</button>;
+const MyButton: React.FC<IButtonProps> = ({ children, onClick, disabled }) => {
+  return (
+    <button disabled={disabled} onClick={onClick}>
+      {children}
+    </button>
+  );
 };
 
 export default MyButton;

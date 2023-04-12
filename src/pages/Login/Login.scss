@@ -1,0 +1,51 @@
+.login {
+  max-width: 400px;
+  margin: 0 auto;
+  margin-top: 50px;
+  display: flex;
+  padding: 50px 0;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 5px #333;
+  border-radius: 5px;
+  position: relative;
+  .back {
+    position: absolute;
+    right: 15px;
+    box-shadow: 0 0 3px #333;
+    padding: 5px;
+    display: flex;
+    border-radius: 50%;
+    top: 15px;
+  }
+  h1 {
+    text-align: center;
+  }
+  div {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+    input {
+      padding: 5px;
+      border: 0;
+      box-shadow: 0 0 2px #333;
+      outline: 0;
+      margin-top: 5px;
+    }
+  }
+  .submit {
+    display: flex;
+    justify-content: space-between;
+    flex-direction: row;
+    button {
+      width: 45%;
+      margin-top: 20px;
+      padding: 8px;
+      border: 0;
+      box-shadow: 0 0 3px #333;
+      border-radius: 3px;
+      display: inline-block;
+    }
+  }
+}

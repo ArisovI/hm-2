@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { Context } from "../../context/Context";
@@ -6,9 +6,13 @@ import { FaTelegram, FaFacebook, FaWhatsapp } from "react-icons/fa";
 import "./AboutItem.scss";
 import MyButton from "../../components/UI/button/MyButton";
 import ImageCarousel from "../../components/Carousel/ImageCarousel";
+import { ADD_TO_CART } from "../../type/reducerTypes";
 const AboutItem = () => {
   const value = useContext(Context);
   const { id } = useParams<string>();
+  useEffect(() => {
+    console.log(id);
+  }, []);
   if (id !== undefined) {
     const product = value?.products.find((p) => p.id === parseInt(id));
 
@@ -26,13 +30,13 @@ const AboutItem = () => {
               <div className="share">
                 <span>Поделеиться:</span>
                 <div>
-                  <a href="https://www.telegram.com/" target=''>
+                  <a href="https://www.telegram.com/" target="">
                     <FaTelegram />
                   </a>
-                  <a href="https://www.facebook.com/" target=''>
+                  <a href="https://www.facebook.com/" target="">
                     <FaFacebook />
                   </a>
-                  <a href="https://www.whatsapp.com/" target=''>
+                  <a href="https://www.whatsapp.com/" target="">
                     <FaWhatsapp />
                   </a>
                 </div>
@@ -46,7 +50,13 @@ const AboutItem = () => {
                 <Link to="/">
                   <MyButton>Back</MyButton>
                 </Link>
-                <MyButton>Add to cart</MyButton>
+                <MyButton
+                  onClick={() =>
+                    value?.dispatch({ type: ADD_TO_CART, payload: product })
+                  }
+                >
+                  Add to cart
+                </MyButton>
               </div>
             </div>
           </div>

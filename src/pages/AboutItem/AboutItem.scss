@@ -1,21 +1,20 @@
 .aboutItem {
   display: flex;
-  justify-content: center;
   margin-top: 50px;
   gap: 10px;
   & > div {
     width: 50%;
   }
+
   &-info {
     height: 100%;
     padding: 20px 30px;
     box-shadow: 0 0 5px #333;
-    border-radius: 4  px;
+    border-radius: 4 px;
     div {
       display: flex;
       justify-content: space-between;
       align-items: center;
-
       .share {
         display: flex;
         align-items: center;

@@ -8,3 +8,9 @@ export interface IProduct {
     name: string;
   };
 }
+
+export interface IUserInfo {
+  id: number;
+  avatar: string;
+  name: string;
+}
