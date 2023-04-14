@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, memo, useMemo } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Context } from "./context/Context";
 import axios from "axios";
@@ -17,10 +17,13 @@ const App: React.FC = () => {
   const [products, setProducts] = useState<IProduct[]>([]);
   const [cart, setCart] = useState<IProduct[]>([]);
   const [state, dispatch] = useReducer(reducer, cart);
+  const [search, setSearch] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // useEffect(() => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [userInfo, setUserInfo] = useState({});
 
-  // }, []);
   useEffect(() => {
     if (cartItems.length !== 0) {
       dispatch({ type: LOAD, payload: cartItems });
@@ -28,15 +31,60 @@ const App: React.FC = () => {
     const fetchProducts = async () => {
       try {
         const res = await axios.get<IProduct[]>(
-          "https://api.escuelajs.co/api/v1/products?offset=10&limit=10"
+          `https://api.escuelajs.co/api/v1/${
+            categoryId === 0 ? "products" : `categories/${categoryId}/products`
+          }`
         );
-        setProducts(res.data);
+        if (res.status === 200) {
+          setProducts(res.data);
+          setIsLoading(false);
+        }
       } catch (error) {
         console.log(error);
       }
     };
+    setIsLoading(true);
     fetchProducts();
-  }, []);
+  }, [categoryId]);
+
+  const checkLogin = () => {
+    const fetchAuth = async () => {
+      try {
+        const mod = await axios.post(
+          "https://api.escuelajs.co/api/v1/auth/login",
+          { email: email, password: password }
+        );
+        setUserActive(true);
+        localStorage.setItem("user", mod.data.access_token);
+        console.log(mod);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    const getUser = async () => {
+      try {
+        const mod = await axios.get(
+          "https://api.escuelajs.co/api/v1/auth/profile",
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("user")}`,
+            },
+          }
+        );
+        setUserInfo(mod.data);
+        console.log(mod);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchAuth();
+    getUser();
+  };
+
+  const logOut = () => {
+    setUserActive(false);
+    localStorage.removeItem("user");
+  };
 
   const value = {
     products,
@@ -46,6 +94,16 @@ const App: React.FC = () => {
     setUserActive,
     dispatch,
     state,
+    search,
+    setSearch,
+    isLoading,
+    checkLogin,
+    email,
+    setEmail,
+    password,
+    setPassword,
+    userInfo,
+    logOut,
   };
 
   return (

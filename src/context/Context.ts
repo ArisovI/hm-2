@@ -6,8 +6,16 @@ interface IContextValue {
   setCategoryId: (i: number) => void;
   dispatch: (e: any) => void;
   state: any;
+  search: string;
+  setSearch: (e: any) => void;
+  isLoading: boolean;
+  userActive: boolean;
+  checkLogin: () => void;
+  email: string;
+  setEmail: (e: any) => void;
+  password: string;
+  setPassword: (e: any) => void;
+  userInfo: any;
+  logOut: () => void;
 }
 export const Context = createContext<IContextValue | null>(null);
-
-// email: "john@mail.com",
-// password: "changeme",

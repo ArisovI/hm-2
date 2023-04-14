@@ -19,15 +19,25 @@ const Login = () => {
       <form onSubmit={handleClick}>
         <div>
           <span>Email</span>
-          <input type="text" placeholder="Email..." />
+          <input
+            type="text"
+            placeholder="Email..."
+            value={value?.email}
+            onChange={(e) => value?.setEmail(e.target.value)}
+          />
         </div>
         <div>
           <span>Password</span>
-          <input type="text" placeholder="Password..." />
+          <input
+            type="text"
+            placeholder="Password..."
+            value={value?.password}
+            onChange={(e) => value?.setPassword(e.target.value)}
+          />
         </div>
         <div className="submit">
-          <MyButton>Reset</MyButton>
-          <MyButton>Login</MyButton>
+          <MyButton >Reset</MyButton>
+          <MyButton onClick={() => value?.checkLogin()}>Login</MyButton>
         </div>
       </form>
     </div>

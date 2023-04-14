@@ -6,18 +6,27 @@
     font-size: 35px;
   }
   .search {
-    background: red;
-    width: 400px;
-    display: flex;
+    width: 30%;
+
+    position: relative;
     input {
       padding: 10px;
-      width: 84%;
+      width: 100%;
+      border: 0;
+      box-shadow: 0 0 3px #333;
+      outline: 0;
+      border-radius: 10px;
+      color: #333;
+      font-weight: 500;
     }
-    button {
-      padding: 10px 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+    svg {
+      position: absolute;
+      right: -10px;
+      cursor: pointer;
+      top: 20%;
+      width: 25px;
+      height: 25px;
+      fill: rgb(107, 107, 107);
     }
   }
   .right {
@@ -36,7 +45,7 @@
         }
       }
     }
-    .userInfo {
+    .user {
       cursor: pointer;
       display: flex;
       box-shadow: 0 0 2px black;
@@ -62,6 +71,7 @@
         width: 30px;
         height: 30px;
         object-fit: contain;
+        border-radius: 50%;
       }
       svg {
         width: 28px;
