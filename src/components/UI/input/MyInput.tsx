@@ -4,6 +4,7 @@ interface IMyInputProps {
   onChange?: (e: any) => void;
   value?: any;
   placeholder?: string;
+  className?: string;
 }
 
 const MyInput: React.FC<IMyInputProps> = ({
@@ -11,9 +12,11 @@ const MyInput: React.FC<IMyInputProps> = ({
   onChange,
   value,
   placeholder,
+  className,
 }) => {
   return (
     <input
+      className={className}
       type={type}
       onChange={onChange}
       value={value}

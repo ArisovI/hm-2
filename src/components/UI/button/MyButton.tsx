@@ -3,10 +3,16 @@ interface IButtonProps {
   children: React.ReactNode;
   onClick?: (e: any) => void;
   disabled?: any;
+  type?: any;
 }
-const MyButton: React.FC<IButtonProps> = ({ children, onClick, disabled }) => {
+const MyButton: React.FC<IButtonProps> = ({
+  children,
+  onClick,
+  disabled,
+  type,
+}) => {
   return (
-    <button disabled={disabled} onClick={onClick}>
+    <button type={type} disabled={disabled} onClick={onClick}>
       {children}
     </button>
   );

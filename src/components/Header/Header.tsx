@@ -6,12 +6,12 @@ import { MdClose } from "react-icons/md";
 
 import { Context } from "../../context/Context";
 import MyInput from "../UI/input/MyInput";
-import { exit } from "process";
 
 const Header = () => {
   const routes: string[] = ["Home", "Cart"];
   const [exitActive, setExitActive] = useState(false);
   const value = useContext(Context);
+  const userStatus = value?.userActive ? "Cart" : "login";
   return (
     <div className="header">
       <Link to="/">
@@ -30,9 +30,15 @@ const Header = () => {
         <ul>
           {routes.map((item, i) => (
             <li key={i}>
-              <Link to={item === "Home" ? "/" : item}>
+              <Link to={item === "Home" ? "/" : userStatus}>
                 {item === "Cart" ? <FaShoppingCart /> : <FaHome />}
               </Link>
+              <span
+                style={{ display: item === "Cart" ? "flex" : "none" }}
+                className="cartLength"
+              >
+                {item === "Cart" ? value?.cartLength : ""}
+              </span>
             </li>
           ))}
         </ul>

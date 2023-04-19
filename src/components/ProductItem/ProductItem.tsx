@@ -12,6 +12,12 @@ interface IProductItemProps {
 }
 const ProductItem: React.FC<IProductItemProps> = ({ obj }) => {
   const value = useContext(Context);
+  const addToCart = (obj: IProduct) => {
+    if (value?.userActive) {
+      alert(`${obj.title} ${obj.price} $`);
+      value?.dispatch({ type: ADD_TO_CART, payload: obj });
+    }
+  };
   return (
     <li className="productItem">
       <img src={obj.images[0]} alt={obj.images[0]} />
@@ -24,11 +30,17 @@ const ProductItem: React.FC<IProductItemProps> = ({ obj }) => {
               <MdInfo />
             </MyButton>
           </Link>
-          <MyButton
-            onClick={() => value?.dispatch({ type: ADD_TO_CART, payload: obj })}
-          >
-            <FaShoppingBag />
-          </MyButton>
+          {value?.userActive ? (
+            <MyButton onClick={() => addToCart(obj)}>
+              <FaShoppingBag />
+            </MyButton>
+          ) : (
+            <Link to="login">
+              <MyButton>
+                <FaShoppingBag />
+              </MyButton>
+            </Link>
+          )}
         </div>
       </div>
     </li>

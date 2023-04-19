@@ -6,10 +6,12 @@ import MyButton from "../../components/UI/button/MyButton";
 import { MdDelete } from "react-icons/md";
 import { DELETE_TO_CART, REMOVE_CART } from "../../type/reducerTypes";
 import { Link } from "react-router-dom";
+import Checkout from "../../features/Checkout/Checkout";
 
 const Cart = () => {
   const value = useContext(Context);
-
+  const [order, setOrder] = useState<boolean>(false);
+  const [item, setItem] = useState(0);
   return (
     <div className="cart">
       <h1>Cart</h1>
@@ -22,8 +24,8 @@ const Cart = () => {
                 <h3>{obj.title}</h3>
                 <div className="counter">
                   <MyButton>-</MyButton>
-                  <span>0</span>
-                  <MyButton>+</MyButton>
+                  <span>{item}</span>
+                  <MyButton onClick={() => setItem(item + 1)}>+</MyButton>
                 </div>
                 <p>{obj.price} $</p>
                 <MyButton
@@ -45,12 +47,13 @@ const Cart = () => {
           <h2>Сумма заказа</h2>
           <span>Количество товаров: 0 шт</span>
           <span>Общая стоимость товаров: 0 $</span>
-          <MyButton>Оформить заказ</MyButton>
+          <MyButton onClick={() => setOrder(true)}>Оформить заказ</MyButton>
           <MyButton onClick={() => value?.dispatch({ type: REMOVE_CART })}>
             Очистить корзину
           </MyButton>
         </div>
       </div>
+      {order ? <Checkout order={order} setOrder={setOrder} /> : null}
     </div>
   );
 };

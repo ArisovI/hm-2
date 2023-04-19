@@ -3,24 +3,30 @@ import { cartItems } from "../utils/cart";
 import {
   ADD_TO_CART,
   DELETE_TO_CART,
+  GET_ORDER,
   LOAD,
   REMOVE_CART,
 } from "../type/reducerTypes";
-
 localStorage.setItem("cart", JSON.stringify(cartItems));
-
 export const reducer = (state: any, action: any) => {
   switch (action.type) {
     case ADD_TO_CART:
+      console.log(!cartItems.includes(action.payload));
+
       if (!cartItems.includes(action.payload)) {
         localStorage.setItem(
           "cart",
           JSON.stringify([...cartItems, action.payload])
         );
+        // let arr = [];
+        // [...cartItems, action.payload]
         cartItems.push(action.payload);
+        // state.push(action.payload);
       } else {
         console.log("Your cart is empty");
-        return state;
+        console.log(!cartItems.includes(action.payload));
+
+        // return state;
       }
       if (!state.includes(action.payload)) {
         return [...state, action.payload];
@@ -51,6 +57,17 @@ export const reducer = (state: any, action: any) => {
 
     case LOAD:
       state = action.payload;
+      return state;
+
+    case GET_ORDER:
+      let getOrder = localStorage.getItem("cart");
+      if (getOrder !== null) {
+        let getOrderParse = JSON.parse(getOrder);
+        getOrderParse.length = 0;
+        localStorage.setItem("cart", JSON.stringify(getOrderParse));
+      }
+      let emptyCart: IProduct[] = [];
+      state = emptyCart;
       return state;
     default:
       return state;

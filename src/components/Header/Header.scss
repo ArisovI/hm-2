@@ -38,10 +38,25 @@
       align-items: center;
       gap: 20px;
       li {
+        position: relative;
         svg {
           display: flex;
           width: 28px;
           height: 28px;
+        }
+        span {
+          position: absolute;
+          width: 20px;
+          height: 20px;
+          background: #333;
+          color: white;
+          top: 15px;
+          right: -10px;
+          border-radius: 50%;
+          justify-content: center;
+          align-items: center;
+          font-size: 15px;
+          font-weight: 500;
         }
       }
     }

@@ -17,5 +17,8 @@ interface IContextValue {
   setPassword: (e: any) => void;
   userInfo: any;
   logOut: () => void;
+  cartLength: number;
+  itemPrice: number;
+  setItemsPrice: (e: any) => void;
 }
 export const Context = createContext<IContextValue | null>(null);

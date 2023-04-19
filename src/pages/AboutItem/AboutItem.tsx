@@ -10,9 +10,7 @@ import { ADD_TO_CART } from "../../type/reducerTypes";
 const AboutItem = () => {
   const value = useContext(Context);
   const { id } = useParams<string>();
-  useEffect(() => {
-    console.log(id);
-  }, []);
+
   if (id !== undefined) {
     const product = value?.products.find((p) => p.id === parseInt(id));
 
@@ -50,13 +48,17 @@ const AboutItem = () => {
                 <Link to="/">
                   <MyButton>Back</MyButton>
                 </Link>
-                <MyButton
-                  onClick={() =>
-                    value?.dispatch({ type: ADD_TO_CART, payload: product })
-                  }
-                >
-                  Add to cart
-                </MyButton>
+                {value?.userActive ? (
+                  <MyButton
+                    onClick={() =>
+                      value?.dispatch({ type: ADD_TO_CART, payload: product })
+                    }
+                  >
+                    Add to cart
+                  </MyButton>
+                ) : (
+                  <MyButton>Add to cart</MyButton>
+                )}
               </div>
             </div>
           </div>

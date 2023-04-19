@@ -19,11 +19,12 @@ const App: React.FC = () => {
   const [state, dispatch] = useReducer(reducer, cart);
   const [search, setSearch] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(true);
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
   const [userInfo, setUserInfo] = useState({});
 
+  const [totalPrice, setTotalPrice] = useState<number>(0);
+  const [itemPrice, setItemsPrice] = useState<number>(0);
   useEffect(() => {
     if (cartItems.length !== 0) {
       dispatch({ type: LOAD, payload: cartItems });
@@ -47,23 +48,10 @@ const App: React.FC = () => {
     fetchProducts();
   }, [categoryId]);
 
-  const checkLogin = () => {
-    const fetchAuth = async () => {
+  useEffect(() => {
+    const getUserInfo = async () => {
       try {
-        const mod = await axios.post(
-          "https://api.escuelajs.co/api/v1/auth/login",
-          { email: email, password: password }
-        );
-        setUserActive(true);
-        localStorage.setItem("user", mod.data.access_token);
-        console.log(mod);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    const getUser = async () => {
-      try {
-        const mod = await axios.get(
+        const response = await axios.get(
           "https://api.escuelajs.co/api/v1/auth/profile",
           {
             headers: {
@@ -71,14 +59,38 @@ const App: React.FC = () => {
             },
           }
         );
-        setUserInfo(mod.data);
-        console.log(mod);
+        setUserInfo(response.data);
+        console.log(response);
+
+        setUserActive(true);
       } catch (error) {
         console.log(error);
       }
     };
-    fetchAuth();
-    getUser();
+    getUserInfo();
+  }, [userActive]);
+
+  const checkLogin = () => {
+    if (email.length > 0 || password.length > 0) {
+      const fetchAuth = async () => {
+        try {
+          const response = await axios.post(
+            "https://api.escuelajs.co/api/v1/auth/login",
+            { email: email, password: password }
+          );
+          setUserActive(true);
+          localStorage.setItem("user", response.data.access_token);
+          console.log(response);
+        } catch (error) {
+          alert("Email and Passport don't match ");
+
+          console.log(error);
+        }
+      };
+      fetchAuth();
+    } else {
+      alert("You didn't write anything");
+    }
   };
 
   const logOut = () => {
@@ -86,7 +98,10 @@ const App: React.FC = () => {
     localStorage.removeItem("user");
   };
 
+  let cartLength = state.length > 0 ? state.length : "";
+
   const value = {
+    cartLength,
     products,
     categoryId,
     setCategoryId,
@@ -104,6 +119,8 @@ const App: React.FC = () => {
     setPassword,
     userInfo,
     logOut,
+    itemPrice,
+    setItemsPrice,
   };
 
   return (

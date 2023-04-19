@@ -10,6 +10,11 @@ const Login = () => {
     e.preventDefault();
   };
 
+  const resetInputs = () => {
+    value?.setEmail("");
+    value?.setPassword("");
+  };
+
   return (
     <div className="login">
       <Link to="/" className="back">
@@ -36,7 +41,7 @@ const Login = () => {
           />
         </div>
         <div className="submit">
-          <MyButton >Reset</MyButton>
+          <MyButton onClick={() => resetInputs()}>Reset</MyButton>
           <MyButton onClick={() => value?.checkLogin()}>Login</MyButton>
         </div>
       </form>

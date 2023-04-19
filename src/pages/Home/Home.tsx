@@ -55,14 +55,18 @@ const Home = () => {
           <ProductList currentItems={currentItems} />
         </div>
       </div>
-      <ReactPaginate
-        breakLabel="..."
-        nextLabel={<FaLongArrowAltRight />}
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={pageCount}
-        previousLabel={<FaLongArrowAltLeft />}
-      />
+      {value?.search !== "" ? (
+        ""
+      ) : (
+        <ReactPaginate
+          breakLabel="..."
+          nextLabel={<FaLongArrowAltRight />}
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={2}
+          pageCount={pageCount}
+          previousLabel={<FaLongArrowAltLeft />}
+        />
+      )}
     </div>
   );
 };

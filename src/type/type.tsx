@@ -10,7 +10,11 @@ export interface IProduct {
 }
 
 export interface IUserInfo {
-  id: number;
-  avatar: string;
-  name: string;
+  data: {
+    id: number;
+    avatar: string;
+    email: string;
+    name: string;
+    password: string;
+  };
 }
