@@ -1,4 +1,4 @@
-import React, { createContext } from "react";
+import { createContext } from "react";
 import { IProduct, IUserInfo } from "../type/type";
 interface IContextValue {
   products: IProduct[];
@@ -18,7 +18,10 @@ interface IContextValue {
   userInfo: any;
   logOut: () => void;
   cartLength: number;
-  itemPrice: number;
-  setItemsPrice: (e: any) => void;
+  filterMinPrice: any;
+  setFilterMinPrice: (e: any) => void;
+  handleFilter: () => void;
+  filterMaxPrice: any;
+  setFilterMaxPrice: (e: any) => void;
 }
 export const Context = createContext<IContextValue | null>(null);

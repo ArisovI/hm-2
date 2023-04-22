@@ -6,6 +6,7 @@ import { MdClose } from "react-icons/md";
 
 import { Context } from "../../context/Context";
 import MyInput from "../UI/input/MyInput";
+import { cartItems } from "../../utils/cart";
 
 const Header = () => {
   const routes: string[] = ["Home", "Cart"];
@@ -37,7 +38,7 @@ const Header = () => {
                 style={{ display: item === "Cart" ? "flex" : "none" }}
                 className="cartLength"
               >
-                {item === "Cart" ? value?.cartLength : ""}
+                {value?.userActive ? value.cartLength : ""}
               </span>
             </li>
           ))}

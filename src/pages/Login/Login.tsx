@@ -4,6 +4,7 @@ import { MdClose } from "react-icons/md";
 import { Link } from "react-router-dom";
 import "./Login.scss";
 import { Context } from "../../context/Context";
+import MyInput from "../../components/UI/input/MyInput";
 const Login = () => {
   const value = useContext(Context);
   const handleClick = (e: any) => {
@@ -24,18 +25,18 @@ const Login = () => {
       <form onSubmit={handleClick}>
         <div>
           <span>Email</span>
-          <input
+          <MyInput
             type="text"
-            placeholder="Email..."
+            placeholder="john@mail.com"
             value={value?.email}
             onChange={(e) => value?.setEmail(e.target.value)}
           />
         </div>
         <div>
           <span>Password</span>
-          <input
-            type="text"
-            placeholder="Password..."
+          <MyInput
+            type="password"
+            placeholder="changeme"
             value={value?.password}
             onChange={(e) => value?.setPassword(e.target.value)}
           />

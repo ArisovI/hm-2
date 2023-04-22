@@ -22,9 +22,11 @@ const App: React.FC = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [userInfo, setUserInfo] = useState({});
+  //filter
+  const [filterMinPrice, setFilterMinPrice] = useState<any>(1);
+  const [filterMaxPrice, setFilterMaxPrice] = useState<any>(1000);
+  const [filter, setFilter] = useState<boolean>(false);
 
-  const [totalPrice, setTotalPrice] = useState<number>(0);
-  const [itemPrice, setItemsPrice] = useState<number>(0);
   useEffect(() => {
     if (cartItems.length !== 0) {
       dispatch({ type: LOAD, payload: cartItems });
@@ -34,8 +36,13 @@ const App: React.FC = () => {
         const res = await axios.get<IProduct[]>(
           `https://api.escuelajs.co/api/v1/${
             categoryId === 0 ? "products" : `categories/${categoryId}/products`
+          }${
+            filter
+              ? `/?price_min=${filterMinPrice}&price_max=${filterMaxPrice}`
+              : ""
           }`
         );
+
         if (res.status === 200) {
           setProducts(res.data);
           setIsLoading(false);
@@ -46,7 +53,7 @@ const App: React.FC = () => {
     };
     setIsLoading(true);
     fetchProducts();
-  }, [categoryId]);
+  }, [categoryId, filter]);
 
   useEffect(() => {
     const getUserInfo = async () => {
@@ -60,7 +67,6 @@ const App: React.FC = () => {
           }
         );
         setUserInfo(response.data);
-        console.log(response);
 
         setUserActive(true);
       } catch (error) {
@@ -100,6 +106,10 @@ const App: React.FC = () => {
 
   let cartLength = state.length > 0 ? state.length : "";
 
+  const handleFilter = () => {
+    setFilter(!filter);
+  };
+
   const value = {
     cartLength,
     products,
@@ -119,8 +129,12 @@ const App: React.FC = () => {
     setPassword,
     userInfo,
     logOut,
-    itemPrice,
-    setItemsPrice,
+    //filter
+    filterMinPrice,
+    setFilterMinPrice,
+    handleFilter,
+    filterMaxPrice,
+    setFilterMaxPrice,
   };
 
   return (

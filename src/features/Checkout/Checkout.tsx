@@ -4,7 +4,7 @@ import React, { useContext } from "react";
 import MyButton from "../../components/UI/button/MyButton";
 import MyInput from "../../components/UI/input/MyInput";
 import { Context } from "../../context/Context";
-import { GET_ORDER } from "../../type/reducerTypes";
+import { GET_ORDER, REMOVE_CART } from "../../type/reducerTypes";
 import { IProduct } from "../../type/type";
 import "./Checkout.scss";
 interface ICheckoutProps {
@@ -17,6 +17,10 @@ const Checkout: React.FC<ICheckoutProps> = ({ order, setOrder }) => {
     e.preventDefault();
   };
 
+  const totalPrice = value?.state.reduce((acc: any, product: any) => {
+    return acc + product.price;
+  }, 0);
+
   return (
     <div className="checkout">
       <div className="checkout-inner">
@@ -26,7 +30,7 @@ const Checkout: React.FC<ICheckoutProps> = ({ order, setOrder }) => {
           </span>
           <h1>Order</h1>
           <ul>
-            {value?.state.length > 1 ? (
+            {value?.state.length > 0 ? (
               value?.state.map((obj: IProduct) => {
                 return (
                   <li key={obj.id}>
@@ -40,7 +44,7 @@ const Checkout: React.FC<ICheckoutProps> = ({ order, setOrder }) => {
               <span className="emptyOrder">EMPTY</span>
             )}
           </ul>
-          <span className="priceOrder">TOTAL PRICE $$</span>
+          <span className="priceOrder">Your total price {totalPrice} $</span>
           <div className="form">
             <form onSubmit={(e: any) => handleForm(e)}>
               <MyInput
@@ -55,7 +59,11 @@ const Checkout: React.FC<ICheckoutProps> = ({ order, setOrder }) => {
                 placeholder="Укажите свой телефон"
               />
               <div className="btns">
-                <MyButton>Reset</MyButton>
+                <MyButton
+                  onClick={() => value?.dispatch({ type: REMOVE_CART })}
+                >
+                  Reset
+                </MyButton>
                 <MyButton onClick={() => value?.dispatch({ type: GET_ORDER })}>
                   Send
                 </MyButton>

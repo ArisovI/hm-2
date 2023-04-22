@@ -1,37 +1,51 @@
 import { IProduct } from "../type/type";
-import { cartItems } from "../utils/cart";
 import {
   ADD_TO_CART,
   DELETE_TO_CART,
   GET_ORDER,
   LOAD,
   REMOVE_CART,
+  REMOVE_ITEM,
 } from "../type/reducerTypes";
-localStorage.setItem("cart", JSON.stringify(cartItems));
 export const reducer = (state: any, action: any) => {
   switch (action.type) {
     case ADD_TO_CART:
-      console.log(!cartItems.includes(action.payload));
+      const items = [...state];
+      const findStateIndex = items.findIndex(
+        (item) => item.id === action.payload.id
+      );
 
-      if (!cartItems.includes(action.payload)) {
-        localStorage.setItem(
-          "cart",
-          JSON.stringify([...cartItems, action.payload])
-        );
-        // let arr = [];
-        // [...cartItems, action.payload]
-        cartItems.push(action.payload);
-        // state.push(action.payload);
+      if (findStateIndex !== -1) {
+        items[findStateIndex].count++;
       } else {
-        console.log("Your cart is empty");
-        console.log(!cartItems.includes(action.payload));
+        items.push({ ...action.payload, count: 1 });
+      }
 
-        // return state;
+      localStorage.setItem("cart", JSON.stringify(items));
+      return items;
+
+    case REMOVE_ITEM:
+      const itemsRemoveItem = [...state];
+      const findState = itemsRemoveItem.find(
+        (item) => item.id === action.payload.id
+      );
+
+      if (!findState) {
+        itemsRemoveItem.push({ ...action.payload, count: 1 });
+        return itemsRemoveItem;
+      } else {
+        let filterItems = itemsRemoveItem.map((item) => {
+          if (item.id === action.payload.id) {
+            if (item.count > 1) {
+              item.count--;
+            }
+          }
+          return item;
+        });
+
+        localStorage.setItem("cart", JSON.stringify(filterItems));
+        return filterItems;
       }
-      if (!state.includes(action.payload)) {
-        return [...state, action.payload];
-      }
-      return state;
 
     case DELETE_TO_CART:
       const productsCart = localStorage.getItem("cart");
@@ -42,7 +56,11 @@ export const reducer = (state: any, action: any) => {
         );
         localStorage.setItem("cart", JSON.stringify(productsFilter));
       }
-      return [...state].filter((item) => item.id !== action.payload);
+      let deleteFilterState = [...state].filter(
+        (item) => item.id !== action.payload
+      );
+
+      return deleteFilterState;
 
     case REMOVE_CART:
       let removeCartItems = localStorage.getItem("cart");
@@ -52,8 +70,7 @@ export const reducer = (state: any, action: any) => {
         localStorage.setItem("cart", JSON.stringify(removeCartItemsParse));
       }
       let emptyArr: IProduct[] = [];
-      state = emptyArr;
-      return state;
+      return emptyArr;
 
     case LOAD:
       state = action.payload;
@@ -65,10 +82,12 @@ export const reducer = (state: any, action: any) => {
         let getOrderParse = JSON.parse(getOrder);
         getOrderParse.length = 0;
         localStorage.setItem("cart", JSON.stringify(getOrderParse));
-      }
+      } 
       let emptyCart: IProduct[] = [];
-      state = emptyCart;
-      return state;
+      alert("DONE");
+
+      return emptyCart;
+
     default:
       return state;
   }

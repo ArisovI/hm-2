@@ -4,14 +4,26 @@ import { Context } from "../../context/Context";
 import { IProduct } from "../../type/type";
 import MyButton from "../../components/UI/button/MyButton";
 import { MdDelete } from "react-icons/md";
-import { DELETE_TO_CART, REMOVE_CART } from "../../type/reducerTypes";
+import {
+  ADD_TO_CART,
+  DELETE_TO_CART,
+  REMOVE_CART,
+  REMOVE_ITEM,
+} from "../../type/reducerTypes";
 import { Link } from "react-router-dom";
 import Checkout from "../../features/Checkout/Checkout";
 
 const Cart = () => {
   const value = useContext(Context);
   const [order, setOrder] = useState<boolean>(false);
-  const [item, setItem] = useState(0);
+  let totalPrice = value?.state.reduce((acc: any, product: any) => {
+    return acc + product.price * product.count;
+  }, 0);
+
+  let totalCount = value?.state.reduce((acc: any, product: any) => {
+    return acc + product.count;
+  }, 0);
+
   return (
     <div className="cart">
       <h1>Cart</h1>
@@ -23,9 +35,21 @@ const Cart = () => {
                 <img src={obj.images[0]} alt="" />
                 <h3>{obj.title}</h3>
                 <div className="counter">
-                  <MyButton>-</MyButton>
-                  <span>{item}</span>
-                  <MyButton onClick={() => setItem(item + 1)}>+</MyButton>
+                  <MyButton
+                    onClick={() =>
+                      value.dispatch({ type: REMOVE_ITEM, payload: obj })
+                    }
+                  >
+                    -
+                  </MyButton>
+                  <span>{obj.count}</span>
+                  <MyButton
+                    onClick={() =>
+                      value.dispatch({ type: ADD_TO_CART, payload: obj })
+                    }
+                  >
+                    +
+                  </MyButton>
                 </div>
                 <p>{obj.price} $</p>
                 <MyButton
@@ -45,9 +69,17 @@ const Cart = () => {
         </ul>
         <div className="cart-content__total">
           <h2>Сумма заказа</h2>
-          <span>Количество товаров: 0 шт</span>
-          <span>Общая стоимость товаров: 0 $</span>
-          <MyButton onClick={() => setOrder(true)}>Оформить заказ</MyButton>
+          <span>Количество товаров: {totalCount} шт</span>
+          <span>Общая стоимость товаров: {totalPrice} $</span>
+          <MyButton
+            onClick={
+              value?.state.length > 0
+                ? () => setOrder(true)
+                : () => setOrder(false)
+            }
+          >
+            Оформить заказ
+          </MyButton>
           <MyButton onClick={() => value?.dispatch({ type: REMOVE_CART })}>
             Очистить корзину
           </MyButton>
@@ -59,3 +91,20 @@ const Cart = () => {
 };
 
 export default Cart;
+
+/* const product = action.payload;
+const items = [...state];
+const findState = items.find((item) => item.id === product.id);
+console.log(findState);
+
+if (!findState) {
+  items.push({ ...product, count: 1 });
+  return items;
+} else {
+  let filterItems = items.map((item) => {
+    item.count++;
+    return item;
+  });
+
+  localStorage.setItem("cart", JSON.stringify(filterItems));
+  return filterItems; */

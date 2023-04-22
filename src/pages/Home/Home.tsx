@@ -5,6 +5,8 @@ import ReactPaginate from "react-paginate";
 import "./Home.scss";
 import { IProduct } from "../../type/type";
 import { FaLongArrowAltLeft, FaLongArrowAltRight } from "react-icons/fa";
+import MyButton from "../../components/UI/button/MyButton";
+import MyInput from "../../components/UI/input/MyInput";
 const Home = () => {
   const value = useContext(Context);
 
@@ -50,7 +52,30 @@ const Home = () => {
         ))}
       </ul>
       <div className="home-content">
-        <div className="filter">Filter</div>
+        <div className="filter">
+          <div className="filterRange">
+            <MyInput
+              type="range"
+              min="0"
+              max="1000"
+              value={value?.filterMinPrice}
+              onChange={(e: any) => value?.setFilterMinPrice(e.target.value)}
+            />
+            <span>{value?.filterMinPrice}</span>
+          </div>
+          <div className="filterRange">
+            <MyInput
+              type="range"
+              min="0"
+              max="1000"
+              value={value?.filterMaxPrice}
+              onChange={(e: any) => value?.setFilterMaxPrice(e.target.value)}
+            />
+            <span>{value?.filterMaxPrice}</span>
+          </div>
+
+          <MyButton onClick={() => value?.handleFilter()}>Filter</MyButton>
+        </div>
         <div className="content">
           <ProductList currentItems={currentItems} />
         </div>

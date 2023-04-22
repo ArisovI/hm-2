@@ -5,6 +5,11 @@ interface IMyInputProps {
   value?: any;
   placeholder?: string;
   className?: string;
+  min?: string;
+  max?: string;
+  id?: string;
+  checked?: any;
+  readOnly?: any;
 }
 
 const MyInput: React.FC<IMyInputProps> = ({
@@ -13,6 +18,11 @@ const MyInput: React.FC<IMyInputProps> = ({
   value,
   placeholder,
   className,
+  min,
+  max,
+  id,
+  checked,
+  readOnly,
 }) => {
   return (
     <input
@@ -21,6 +31,11 @@ const MyInput: React.FC<IMyInputProps> = ({
       onChange={onChange}
       value={value}
       placeholder={placeholder}
+      min={min}
+      max={max}
+      id={id}
+      checked={checked}
+      readOnly={readOnly}
     />
   );
 };
